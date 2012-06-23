@@ -57,14 +57,11 @@
 									var newImg = document.createElement("img");
 
 									newImg.src = source[0];
-									newImg.style.styleFloat = "left";
 
 									// When the image is loaded, set a width equal to that of the original’s intrinsic width divided by the screen resolution:
 									newImg.onload = function() {
 										// Clone the original image into memory so the width is unaffected by page styles:
-										var el = this,
-											cloneWidth = this.cloneNode( true ).width;
-											newImg.width = ( cloneWidth / resMatch );
+										newImg.width = ( this.cloneNode( true ).width / resMatch );
 									}
 									picImg.parentNode.replaceChild( newImg, picImg );
 								}
@@ -107,16 +104,18 @@
 	if( w.addEventListener ){
 		var throttle;
 		w.addEventListener( "resize", function() {
+			// Throttling the resize event prevents iOS from freaking out when it occasionally triggers a couple of resizes, as 2x images are loaded in.
 			if( throttle ) { w.clearTimeout( throttle ); }
 			throttle = w.setTimeout(function () {
 				w.picturefill();
-			}, 200 );
+			}, 150 );
 		}, false );
 		
 		w.addEventListener( "DOMContentLoaded", function(){
 			w.picturefill();
 			// Run once only
 			w.removeEventListener( "DOMContentLoaded", w.picturefill, false );
+			w.removeEventListener( "load", w.picturefill, false );
 		}, false );
 	}
 	else if( w.attachEvent ){
