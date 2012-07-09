@@ -43,10 +43,10 @@
 					}
 
 					if( srcset ) {
-						var screenRes = ( prefHD && 2 ) || 1,
+						var screenRes = ( prefHD && w.devicePixelRatio ) || 1,
 							sources = srcset.split(","); // Split comma-separated `srcset` sources into an array.
 
-						hasHD = true; //w.devicePixelRatio > 1; // User is on an HD device.
+						hasHD = w.devicePixelRatio > 1; // User is on an HD device.
 
 						for( var res = sources.length, r = res - 1; r >= 0; r-- ) { // Loop through each source/resolution in `srcset`.
 							var source = sources[ r ].replace(/^\s*/, '').replace(/\s*$/, '').split(" "), // Remove any leading whitespace, then split on spaces.
