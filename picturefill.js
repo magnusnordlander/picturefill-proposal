@@ -13,7 +13,7 @@
 	"use strict";
 	
 	// User preference for HD content when available
-	var prefHD = false || w.localStorage && w.localStorage[ "picturefill-prefHD" ] === "true",
+	var prefHD = true, // Srsly? Who doesn't prefer HD?
 		hasHD;
 
 	// Test if `<picture>` is supported natively, if so, exit - no polyfill needed.
